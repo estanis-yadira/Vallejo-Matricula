@@ -14,7 +14,7 @@ public class Docentes extends javax.swing.JPanel {
     public Docentes() {
         
         initComponents();
-        EstiloTabla.aplicar(tblEstudiantes);
+        EstiloTabla.aplicar(tblDocente);
     }
 
     /**
@@ -30,32 +30,32 @@ public class Docentes extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtDniDocente = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
+        txtNombreDocente = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        txtApellidoDocente = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtApellido2Docente = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        txtEspecialidad = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jTextField6 = new javax.swing.JTextField();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        txtCorreo = new javax.swing.JTextField();
+        btnGuardar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        jTextField14 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        txtDireccion = new javax.swing.JTextField();
+        txtTelefono = new javax.swing.JTextField();
+        btnRegistrar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        txtDNI = new javax.swing.JTextField();
+        btnConsultar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblEstudiantes = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        tblDocente = new javax.swing.JTable();
+        btnEliminar = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(244, 247, 249));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -77,61 +77,55 @@ public class Docentes extends javax.swing.JPanel {
         jLabel3.setForeground(new java.awt.Color(103, 115, 124));
         jLabel3.setText("N° de documento:");
 
-        jTextField1.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField1.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtDniDocente.setForeground(new java.awt.Color(138, 149, 156));
+        txtDniDocente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(103, 115, 124));
         jLabel4.setText("Nombre completo:");
 
-        jTextField2.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField2.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtNombreDocente.setForeground(new java.awt.Color(138, 149, 156));
+        txtNombreDocente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(103, 115, 124));
         jLabel5.setText("Apellido paterno:");
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField3.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtApellidoDocente.setForeground(new java.awt.Color(138, 149, 156));
+        txtApellidoDocente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(103, 115, 124));
         jLabel6.setText("Apellido materno:");
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField4.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtApellido2Docente.setForeground(new java.awt.Color(138, 149, 156));
+        txtApellido2Docente.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(103, 115, 124));
         jLabel7.setText("Especialidad:");
 
-        jTextField5.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField5.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtEspecialidad.setForeground(new java.awt.Color(138, 149, 156));
+        txtEspecialidad.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(103, 115, 124));
         jLabel8.setText("Correo electrónico:");
 
-        jTextField6.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField6.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
-        jTextField6.setPreferredSize(new java.awt.Dimension(64, 29));
+        txtCorreo.setForeground(new java.awt.Color(138, 149, 156));
+        txtCorreo.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtCorreo.setPreferredSize(new java.awt.Dimension(64, 29));
 
-        jButton5.setBackground(new java.awt.Color(58, 139, 155));
-        jButton5.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/guardar.png"))); // NOI18N
-        jButton5.setText("Guardar");
+        btnGuardar.setBackground(new java.awt.Color(58, 139, 155));
+        btnGuardar.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/guardar.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
-        jButton6.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(50, 52, 62));
-        jButton6.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(50, 52, 62));
+        btnCancelar.setText("Cancelar");
 
         jLabel12.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(103, 115, 124));
@@ -141,15 +135,13 @@ public class Docentes extends javax.swing.JPanel {
         jLabel18.setForeground(new java.awt.Color(103, 115, 124));
         jLabel18.setText("Dirección:");
 
-        jTextField14.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField14.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField14.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
-        jTextField14.setPreferredSize(new java.awt.Dimension(64, 29));
+        txtDireccion.setForeground(new java.awt.Color(138, 149, 156));
+        txtDireccion.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtDireccion.setPreferredSize(new java.awt.Dimension(64, 29));
 
-        jTextField7.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField7.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField7.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
-        jTextField7.setPreferredSize(new java.awt.Dimension(64, 29));
+        txtTelefono.setForeground(new java.awt.Color(138, 149, 156));
+        txtTelefono.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtTelefono.setPreferredSize(new java.awt.Dimension(64, 29));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -160,41 +152,41 @@ public class Docentes extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDniDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombreDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel8))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtApellidoDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)
                             .addComponent(jLabel12))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel18)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtApellido2Docente, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(0, 18, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel7)
                                     .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(txtTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGap(18, 18, 18)
-                                .addComponent(jTextField14, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(12, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
@@ -205,19 +197,19 @@ public class Docentes extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtApellido2Docente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel5)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtApellidoDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(txtNombreDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtDniDocente, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
@@ -226,25 +218,26 @@ public class Docentes extends javax.swing.JPanel {
                     .addComponent(jLabel18))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEspecialidad, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField14, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jTextField7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(txtCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtDireccion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTelefono, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(18, Short.MAX_VALUE))
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 810, 200));
 
-        jButton1.setBackground(new java.awt.Color(58, 139, 155));
-        jButton1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("Registrar docente");
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 150, 40));
+        btnRegistrar.setBackground(new java.awt.Color(58, 139, 155));
+        btnRegistrar.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnRegistrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnRegistrar.setText("Registrar docente");
+        btnRegistrar.addActionListener(this::btnRegistrarActionPerformed);
+        add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 150, 40));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(224, 231, 235), 2));
@@ -253,17 +246,17 @@ public class Docentes extends javax.swing.JPanel {
         jLabel17.setForeground(new java.awt.Color(103, 115, 124));
         jLabel17.setText("Buscar por DNI:");
 
-        jTextField12.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField12.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtDNI.setForeground(new java.awt.Color(138, 149, 156));
+        txtDNI.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
 
-        jButton2.setBackground(new java.awt.Color(58, 139, 155));
-        jButton2.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lupa-consultar.png"))); // NOI18N
-        jButton2.setText("Consultar");
+        btnConsultar.setBackground(new java.awt.Color(58, 139, 155));
+        btnConsultar.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnConsultar.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lupa-consultar.png"))); // NOI18N
+        btnConsultar.setText("Consultar");
+        btnConsultar.addActionListener(this::btnConsultarActionPerformed);
 
-        tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
+        tblDocente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -274,20 +267,19 @@ public class Docentes extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblEstudiantes.setGridColor(new java.awt.Color(238, 243, 245));
-        jScrollPane2.setViewportView(tblEstudiantes);
+        tblDocente.setGridColor(new java.awt.Color(238, 243, 245));
+        jScrollPane2.setViewportView(tblDocente);
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(50, 52, 62));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/tacho-eliminar.png"))); // NOI18N
-        jButton3.setText("Eliminar");
+        btnEliminar.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(50, 52, 62));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/tacho-eliminar.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
 
-        jButton4.setBackground(new java.awt.Color(58, 139, 155));
-        jButton4.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lapiz-editar.png"))); // NOI18N
-        jButton4.setText("Editar");
+        btnEditar.setBackground(new java.awt.Color(58, 139, 155));
+        btnEditar.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lapiz-editar.png"))); // NOI18N
+        btnEditar.setText("Editar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -300,13 +292,13 @@ public class Docentes extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
-                        .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2))
+                        .addComponent(btnConsultar))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -316,36 +308,48 @@ public class Docentes extends javax.swing.JPanel {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(12, 12, 12)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel17)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 810, 290));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnConsultarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
+    public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnConsultar;
+    public javax.swing.JButton btnEditar;
+    public javax.swing.JButton btnEliminar;
+    public javax.swing.JButton btnGuardar;
+    public javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
-    private javax.swing.JLabel jLabel2;
+    public javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -353,17 +357,17 @@ public class Docentes extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    public javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField14;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTable tblEstudiantes;
+    public javax.swing.JTable tblDocente;
+    public javax.swing.JTextField txtApellido2Docente;
+    public javax.swing.JTextField txtApellidoDocente;
+    public javax.swing.JTextField txtCorreo;
+    public javax.swing.JTextField txtDNI;
+    public javax.swing.JTextField txtDireccion;
+    public javax.swing.JTextField txtDniDocente;
+    public javax.swing.JTextField txtEspecialidad;
+    public javax.swing.JTextField txtNombreDocente;
+    public javax.swing.JTextField txtTelefono;
     // End of variables declaration//GEN-END:variables
 }
