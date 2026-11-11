@@ -17,13 +17,13 @@ public class ControladorDocentes implements ActionListener {
     Nodo encontrado=null;
     
     public ControladorDocentes(Docentes vista){
-        System.out.println("Controlador Docentes iniciado");
     this.vista = vista;
     lista = AlmacenarDocentes.Recuperar();  
     vista.btnRegistrar.addActionListener(this);
     vista.btnGuardar.addActionListener(this);
     vista.btnConsultar.addActionListener(this);   
-    vista.btnEliminar.addActionListener(this);    
+    vista.btnEliminar.addActionListener(this);   
+    vista.btnCancelar.addActionListener(this);
     ProcesosparaDocentes.LimpiarEntradas(vista);
     vista.btnEditar.addActionListener(this);
     lista.MostrarLista(vista.tblDocente, lista);
@@ -119,24 +119,10 @@ public class ControladorDocentes implements ActionListener {
         }
         if (e.getSource() == vista.btnCancelar) {
             ProcesosparaDocentes.LimpiarEntradas(vista);
-            vista.txtDNI.setText("");
-            vista.tblDocente.clearSelection();
-            encontrado = null;
+
         }
 
-        if (e.getSource() == vista.btnConsultar) {
-            String dniBuscado = vista.txtDNI.getText().trim();
-            if (dniBuscado.isEmpty()) {
-                Mensaje.Mostrar("Ingrese un DNI para buscar");
-                return;
-            }
-            encontrado = lista.BuscarDocente(dniBuscado);
-            if (encontrado == null) {
-                Mensaje.Mostrar("El DNI " + dniBuscado + " no existe en la lista");
-            } else {
-                ProcesosparaDocentes.MostrarDocentes(vista, encontrado.doc);
-            }
-        }
+     
     
     }}
     
