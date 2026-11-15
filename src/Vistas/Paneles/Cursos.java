@@ -1,21 +1,302 @@
 package Vistas.Paneles;
 
 import Vistas.Utilidades.EstiloTabla;
-
+import Cursos.Curso;
+import Cursos.ArregloCursos;
+import Cursos.AlmacenarCursos;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Docente.ArregloDocentes;
+import Docente.AlmacenarDocentes;
+import Docente.ListaDocente;
+import Docente.Nodo;
+import Docente.AlmacenarDocentes;
 /**
  *
  * @author yadie
  */
 public class Cursos extends javax.swing.JPanel {
 
+    private ArregloCursos arregloCursos;
+    private String codigoOriginal = null;
+
     /**
      * Creates new form Dashboard
      */
-    public Cursos() {
-        
-        initComponents();
-        EstiloTabla.aplicar(tblEstudiantes);
+    
+public Cursos() {
+    initComponents();
+
+    arregloCursos = AlmacenarCursos.Recuperar();
+
+    configurarTabla();
+    EstiloTabla.aplicar(tblEstudiantes);
+    actualizarTabla();
+
+    jButton1.addActionListener(e -> registrarCurso());
+    jButton5.addActionListener(e -> guardarCurso());
+    jButton6.addActionListener(e -> cancelarOperacion());
+    jButton2.addActionListener(e -> consultarCurso());
+    jButton3.addActionListener(e -> eliminarCurso());
+    jButton4.addActionListener(e -> editarCurso());
+}
+
+
+private void configurarTabla() {
+    DefaultTableModel modelo = new DefaultTableModel(
+        new Object[][]{},
+        new String[]{
+            "N.º",
+            "Código",
+            "Nombre del curso",
+            "Grado",
+            "Horas semanales",
+            "DNI del docente"
+        }
+    ) {
+        @Override
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
+
+    tblEstudiantes.setModel(modelo);
+}
+
+private void actualizarTabla() {
+    DefaultTableModel modelo =
+        (DefaultTableModel) tblEstudiantes.getModel();
+
+    modelo.setRowCount(0);
+
+    Curso[] cursos = arregloCursos.obtenerTodos();
+
+    for (int i = 0; i < cursos.length; i++) {
+        modelo.addRow(cursos[i].Registro(i + 1));
     }
+}
+
+
+private String generarCodigo() {
+    int numero = 1;
+    String codigo;
+
+    do {
+        codigo = String.format("CUR%03d", numero);
+        numero++;
+    } while (arregloCursos.buscarPorCodigo(codigo) != null);
+
+    return codigo;
+}
+
+
+private void registrarCurso() {
+    codigoOriginal = null;
+    limpiarFormulario();
+
+    jTextField5.requestFocusInWindow();
+}
+
+
+private void guardarCurso() {
+    String nombre = jTextField5.getText().trim();
+    String grado = jComboBox3.getSelectedItem().toString();
+    String dniDocente = jTextField4.getText().trim();
+
+    int horasSemanales = (Integer) jSpinner1.getValue();
+
+    if (nombre.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Ingrese el nombre del curso.");
+        jTextField5.requestFocusInWindow();
+        return;
+    }
+
+    if (horasSemanales <= 0) {
+        JOptionPane.showMessageDialog(this,
+                "Las horas semanales deben ser mayores que cero.");
+        return;
+    }
+
+    
+
+if (!dniDocente.matches("\\d{8}")) {
+    JOptionPane.showMessageDialog(this,
+            "Ingrese un DNI de docente válido de 8 dígitos.");
+    jTextField4.requestFocusInWindow();
+    return;
+}
+
+ListaDocente listaDocentes = AlmacenarDocentes.Recuperar();
+
+Nodo docenteEncontrado = listaDocentes.BuscarDocente(dniDocente);
+
+if (docenteEncontrado == null) {
+    JOptionPane.showMessageDialog(this,
+            "No existe un docente registrado con ese DNI.");
+    jTextField4.requestFocusInWindow();
+    return;
+}
+
+
+
+    boolean estabaEditando = codigoOriginal != null;
+
+    String codigo = estabaEditando
+            ? codigoOriginal
+            : generarCodigo();
+
+    Curso curso = new Curso(
+            codigo,
+            nombre,
+            grado,
+            horasSemanales,
+            dniDocente
+    );
+
+    boolean resultado;
+
+    if (estabaEditando) {
+        resultado = arregloCursos.actualizar(codigoOriginal, curso);
+    } else {
+        resultado = arregloCursos.agregar(curso);
+    }
+
+    if (!resultado) {
+        JOptionPane.showMessageDialog(this,
+                "No se pudo guardar el curso.");
+        return;
+    }
+
+    AlmacenarCursos.Guardar(arregloCursos);
+    actualizarTabla();
+    limpiarFormulario();
+    codigoOriginal = null;
+
+    if (estabaEditando) {
+        JOptionPane.showMessageDialog(this,
+                "Curso actualizado correctamente.");
+    } else {
+        JOptionPane.showMessageDialog(this,
+                "Curso registrado correctamente. Código: " + codigo);
+    }
+}
+
+
+private void consultarCurso() {
+    String codigo = jTextField12.getText().trim();
+
+    if (codigo.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+                "Ingrese el código del curso que desea consultar.");
+        jTextField12.requestFocusInWindow();
+        return;
+    }
+
+    Curso curso = arregloCursos.buscarPorCodigo(codigo);
+
+    if (curso == null) {
+        JOptionPane.showMessageDialog(this,
+                "No se encontró un curso con ese código.");
+        return;
+    }
+
+    cargarFormulario(curso);
+
+    JOptionPane.showMessageDialog(this,
+            "Curso encontrado correctamente.");
+}
+
+
+private void editarCurso() {
+    int fila = tblEstudiantes.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(this,
+                "Seleccione un curso de la tabla para editar.");
+        return;
+    }
+
+    String codigo = tblEstudiantes.getValueAt(fila, 1).toString();
+    Curso curso = arregloCursos.buscarPorCodigo(codigo);
+
+    if (curso == null) {
+        JOptionPane.showMessageDialog(this,
+                "No se encontró el curso seleccionado.");
+        return;
+    }
+
+    codigoOriginal = curso.getCodigo();
+    cargarFormulario(curso);
+
+    JOptionPane.showMessageDialog(this,
+            "Modifique los datos y pulse Guardar para actualizar el curso.");
+}
+
+
+private void eliminarCurso() {
+    int fila = tblEstudiantes.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(this,
+                "Seleccione un curso de la tabla para eliminar.");
+        return;
+    }
+
+    String codigo = tblEstudiantes.getValueAt(fila, 1).toString();
+
+    int respuesta = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro de eliminar el curso " + codigo + "?",
+            "Confirmar eliminación",
+            JOptionPane.YES_NO_OPTION
+    );
+
+    if (respuesta != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    if (arregloCursos.eliminar(codigo)) {
+        AlmacenarCursos.Guardar(arregloCursos);
+        actualizarTabla();
+
+        if (codigo.equals(codigoOriginal)) {
+            limpiarFormulario();
+            codigoOriginal = null;
+        }
+
+        JOptionPane.showMessageDialog(this,
+                "Curso eliminado correctamente.");
+    } else {
+        JOptionPane.showMessageDialog(this,
+                "No se pudo eliminar el curso.");
+    }
+}
+
+
+private void cargarFormulario(Curso curso) {
+    jTextField5.setText(curso.getNombre());
+    jComboBox3.setSelectedItem(curso.getGrado());
+    jSpinner1.setValue(curso.getHorasSemanales());
+    jTextField4.setText(curso.getDniDocente());
+}
+
+
+private void limpiarFormulario() {
+    jTextField5.setText("");
+    jComboBox3.setSelectedIndex(0);
+    jSpinner1.setValue(0);
+    jTextField4.setText("");
+}
+
+
+private void cancelarOperacion() {
+    limpiarFormulario();
+    codigoOriginal = null;
+    jTextField5.requestFocusInWindow();
+}
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
