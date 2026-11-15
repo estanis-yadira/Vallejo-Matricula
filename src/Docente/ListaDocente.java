@@ -21,7 +21,14 @@ public class ListaDocente implements Serializable{
 
  public void MostrarLista(JTable tabla, ListaDocente lista){
         String titulos[]={"Num","DNI","NOMBRE","APELLIDO P.","APELLIDO M.", "ESPECIALIDAD", "CORREO", "TELEFONO", "DIRECCION"};
-        DefaultTableModel mt = new DefaultTableModel(null,titulos);
+        
+DefaultTableModel mt = new DefaultTableModel(null, titulos) {
+    @Override
+    public boolean isCellEditable(int fila, int columna) {
+        return false;
+    }
+};
+
         tabla.setModel(mt);
         int num=0;
         Nodo aux=lista.ini;
