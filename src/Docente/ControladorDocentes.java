@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Docente;
 
 import java.awt.event.ActionListener;
@@ -15,10 +11,18 @@ public class ControladorDocentes implements ActionListener {
     Docente doc ;
     ListaDocente lista;
     Nodo encontrado=null;
+    ArregloDocentes arreglo;
     
     public ControladorDocentes(Docentes vista){
     this.vista = vista;
-    lista = AlmacenarDocentes.Recuperar();  
+    lista = AlmacenarDocentes.Recuperar();
+    arreglo = new ArregloDocentes();
+
+Nodo aux = lista.ini;
+while (aux != null) {
+    arreglo.agregar(aux.doc);
+    aux = aux.sig;
+}
     vista.btnRegistrar.addActionListener(this);
     vista.btnGuardar.addActionListener(this);
     vista.btnConsultar.addActionListener(this);   
@@ -34,20 +38,33 @@ public class ControladorDocentes implements ActionListener {
         if (e.getSource() == vista.btnRegistrar) {
             Docente doc= ProcesosparaDocentes.LeerDocente(vista);
             lista.InsertarAlFinal(new Nodo(doc));
+            sincronizarArreglo();
             Mensaje.Mostrar("Docente registrado");
             AlmacenarDocentes.Guardar(lista);
             lista.MostrarLista(vista.tblDocente, lista);
             ProcesosparaDocentes.LimpiarEntradas(vista);
         }
-        if (e.getSource() == vista.btnConsultar) {
-             String dniBuscado = vista.txtDNI.getText();
-            encontrado =  lista.BuscarDocente(dniBuscado);
-            if(encontrado==null){
-                Mensaje.Mostrar("El código "+dniBuscado+" no existe en la lista");                
-            }else{
-                ProcesosparaDocentes.MostrarDocentes(vista, encontrado.doc);
-            }
-        }
+        
+if (e.getSource() == vista.btnConsultar) {
+    String dniBuscado = vista.txtDNI.getText().trim();
+
+    // Buscar el docente utilizando el arreglo de objetos
+    Docente docenteEncontrado = arreglo.buscarPorDni(dniBuscado);
+
+    if (docenteEncontrado == null) {
+        encontrado = null;
+        Mensaje.Mostrar("El DNI " + dniBuscado + " no existe en el arreglo");
+    } else {
+        // Mantener la referencia al nodo para editar o eliminar
+        encontrado = lista.BuscarDocente(dniBuscado);
+
+        ProcesosparaDocentes.MostrarDocentes(
+            vista,
+            docenteEncontrado
+        );
+    }
+}
+
         if (e.getSource() == vista.btnEditar) {
               int fila = vista.tblDocente.getSelectedRow();
 
@@ -74,6 +91,7 @@ public class ControladorDocentes implements ActionListener {
                           "Desea eliminar al docente con DNI: "+encontrado.doc.getDni());
                 if(resp==0){
                     lista.EliminarDocente(encontrado);
+                    sincronizarArreglo();
                    AlmacenarDocentes.Guardar(lista);
                     lista.MostrarLista(vista.tblDocente, lista);   // <- refrescar
                     ProcesosparaDocentes.LimpiarEntradas(vista);
@@ -106,6 +124,7 @@ public class ControladorDocentes implements ActionListener {
             Mensaje.Mostrar("Docente actualizado");
         }
 
+        sincronizarArreglo();
         AlmacenarDocentes.Guardar(lista);
         lista.MostrarLista(vista.tblDocente, lista);
         ProcesosparaDocentes.LimpiarEntradas(vista);
@@ -124,7 +143,18 @@ public class ControladorDocentes implements ActionListener {
 
      
     
-    }}
+    }
+private void sincronizarArreglo() {
+    arreglo = new ArregloDocentes();
+
+    Nodo aux = lista.ini;
+
+    while (aux != null) {
+        arreglo.agregar(aux.doc);
+        aux = aux.sig;
+    }
+}
+}
     
     
     

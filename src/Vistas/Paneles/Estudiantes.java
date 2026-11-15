@@ -1,21 +1,42 @@
 package Vistas.Paneles;
 
+import Estudiantes.Estudiante;
+import Estudiantes.ArregloEstudiantes;
 import Vistas.Utilidades.EstiloTabla;
 
-/**
- *
- * @author yadie
- */
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import Estudiantes.AlmacenarEstudiantes;
+
 public class Estudiantes extends javax.swing.JPanel {
 
     /**
      * Creates new form Dashboard
      */
-    public Estudiantes() {
-        
-        initComponents();
-        EstiloTabla.aplicar(tblEstudiantes);
-    }
+
+private ArregloEstudiantes arregloEstudiantes;
+
+private String dniOriginal = null;
+
+
+public Estudiantes() {
+    initComponents();
+
+    arregloEstudiantes = AlmacenarEstudiantes.Recuperar();
+
+    configurarTabla();
+    EstiloTabla.aplicar(tblEstudiantes);
+    actualizarTabla();
+
+    jButton1.addActionListener(e -> registrarEstudiante());
+    jButton5.addActionListener(e -> guardarEstudiante());
+    jButton6.addActionListener(e -> cancelarOperacion());
+    jButton2.addActionListener(e -> consultarEstudiante());
+    jButton3.addActionListener(e -> eliminarEstudiante());
+    jButton4.addActionListener(e -> editarEstudiante());
+}
+
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -448,6 +469,310 @@ public class Estudiantes extends javax.swing.JPanel {
     private void txtFechaNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtFechaNacActionPerformed
+
+private void configurarTabla() {
+    String[] columnas = {
+        "N°", "DNI", "Nombre", "Apellido paterno",
+        "Apellido materno", "Fecha nacimiento", "Sexo",
+        "Dirección", "DNI apoderado", "Teléfono apoderado",
+        "Nombre apoderado", "Apellido paterno apoderado",
+        "Apellido materno apoderado", "Parentesco"
+    };
+
+    DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
+        @Override
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
+
+    tblEstudiantes.setModel(modelo);
+}
+
+private void actualizarTabla() {
+    DefaultTableModel modelo =
+            (DefaultTableModel) tblEstudiantes.getModel();
+
+    modelo.setRowCount(0);
+
+    Estudiante[] estudiantes = arregloEstudiantes.obtenerTodos();
+
+    for (int i = 0; i < estudiantes.length; i++) {
+        modelo.addRow(estudiantes[i].Registro(i + 1));
+    }
+}
+
+private void registrarEstudiante() {
+    limpiarFormulario();
+    dniOriginal = null;
+    jTextField1.setEditable(true);
+    jTextField1.requestFocusInWindow();
+}
+
+private void cancelarOperacion() {
+    limpiarFormulario();
+    dniOriginal = null;
+    jTextField1.setEditable(true);
+}
+
+private void limpiarFormulario() {
+    jTextField1.setText("");
+    jTextField2.setText("");
+    jTextField3.setText("");
+    jTextField4.setText("");
+    txtFechaNac.setValue(null);
+    jComboBox1.setSelectedIndex(0);
+    jTextField6.setText("");
+    jTextField7.setText("");
+    jTextField8.setText("");
+    jTextField9.setText("");
+    jTextField10.setText("");
+    jTextField13.setText("");
+    jComboBox2.setSelectedIndex(0);
+}
+
+private void guardarEstudiante() {
+    String dni = jTextField1.getText().trim();
+    String nombre = jTextField2.getText().trim();
+    String apellidoP = jTextField3.getText().trim();
+    String apellidoM = jTextField4.getText().trim();
+    String fecha = txtFechaNac.getText().trim();
+    String dniApoderado = jTextField7.getText().trim();
+    String nombreApoderado = jTextField9.getText().trim();
+
+    if (dni.isEmpty() || nombre.isEmpty()
+            || apellidoP.isEmpty() || apellidoM.isEmpty()
+            || !fecha.matches("\\d{2}/\\d{2}/\\d{4}")
+            || dniApoderado.isEmpty()
+            || nombreApoderado.isEmpty()) {
+        
+        JOptionPane.showMessageDialog(
+                this,
+                "Complete los campos obligatorios y verifique "
+                + "la fecha de nacimiento.",
+                "Datos incompletos",
+                JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+
+    Estudiante estudiante = new Estudiante();
+
+    estudiante.setDni(dni);
+    estudiante.setNombre(nombre);
+    estudiante.setApellidoP(apellidoP);
+    estudiante.setApellidoM(apellidoM);
+    estudiante.setFechaNacimiento(fecha);
+    estudiante.setSexo(jComboBox1.getSelectedItem().toString());
+    estudiante.setDireccion(jTextField6.getText().trim());
+
+    estudiante.setDniApoderado(dniApoderado);
+    estudiante.setTelefonoApoderado(jTextField8.getText().trim());
+    estudiante.setNombreApoderado(nombreApoderado);
+    estudiante.setApellidoPApoderado(jTextField10.getText().trim());
+    estudiante.setApellidoMApoderado(jTextField13.getText().trim());
+    estudiante.setParentesco(jComboBox2.getSelectedItem().toString());
+
+
+boolean estabaEditando = dniOriginal != null;
+boolean resultado;
+
+if (!estabaEditando) {
+    resultado = arregloEstudiantes.agregar(estudiante);
+} else {
+    resultado = arregloEstudiantes.actualizar(
+            dniOriginal, estudiante);
+}
+
+
+    if (!resultado) {
+        JOptionPane.showMessageDialog(
+                this,
+                "No se pudo guardar. Verifique que el DNI "
+                + "no esté duplicado y que el estudiante exista.",
+                "Operación no realizada",
+                JOptionPane.WARNING_MESSAGE
+        );
+        return;
+    }
+    AlmacenarEstudiantes.Guardar(arregloEstudiantes);
+    actualizarTabla();
+    limpiarFormulario();
+    dniOriginal = null;
+    jTextField1.setEditable(true);
+
+    
+if (estabaEditando) {
+    JOptionPane.showMessageDialog(
+            this,
+            "Estudiante actualizado",
+            "Operación exitosa",
+            JOptionPane.INFORMATION_MESSAGE
+    );
+} else {
+    JOptionPane.showMessageDialog(
+            this,
+            "Estudiante registrado",
+            "Operación exitosa",
+            JOptionPane.INFORMATION_MESSAGE
+    );
+}
+
+}
+
+private void consultarEstudiante() {
+    String dni = jTextField12.getText().trim();
+
+    if (dni.isEmpty()) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Ingrese el DNI que desea consultar."
+        );
+        return;
+    }
+
+    Estudiante estudiante = arregloEstudiantes.buscarPorDni(dni);
+
+    if (estudiante == null) {
+        JOptionPane.showMessageDialog(
+                this,
+                "No se encontró un estudiante con ese DNI."
+        );
+        return;
+    }
+
+    cargarFormulario(estudiante);
+
+    for (int i = 0; i < tblEstudiantes.getRowCount(); i++) {
+        if (dni.equals(
+                tblEstudiantes.getValueAt(i, 1).toString())) {
+
+            tblEstudiantes.setRowSelectionInterval(i, i);
+            tblEstudiantes.scrollRectToVisible(
+                    tblEstudiantes.getCellRect(i, 0, true));
+            break;
+        }
+    }
+}
+
+private void cargarFormulario(Estudiante estudiante) {
+    jTextField1.setText(estudiante.getDni());
+    jTextField2.setText(estudiante.getNombre());
+    jTextField3.setText(estudiante.getApellidoP());
+    jTextField4.setText(estudiante.getApellidoM());
+    txtFechaNac.setText(estudiante.getFechaNacimiento());
+    jComboBox1.setSelectedItem(estudiante.getSexo());
+    jTextField6.setText(estudiante.getDireccion());
+
+    jTextField7.setText(estudiante.getDniApoderado());
+    jTextField8.setText(estudiante.getTelefonoApoderado());
+    jTextField9.setText(estudiante.getNombreApoderado());
+    jTextField10.setText(estudiante.getApellidoPApoderado());
+    jTextField13.setText(estudiante.getApellidoMApoderado());
+    jComboBox2.setSelectedItem(estudiante.getParentesco());
+}
+
+
+private String obtenerDniObjetivo() {
+    int fila = tblEstudiantes.getSelectedRow();
+
+    if (fila >= 0) {
+        int filaModelo = tblEstudiantes.convertRowIndexToModel(fila);
+        return tblEstudiantes.getModel()
+                .getValueAt(filaModelo, 1).toString();
+    }
+
+    String dni = jTextField12.getText().trim();
+
+    if (!dni.isEmpty()) {
+        return dni;
+    }
+
+    return null;
+}
+
+
+
+private void editarEstudiante() {
+    int fila = tblEstudiantes.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Seleccione un estudiante de la tabla."
+        );
+        return;
+    }
+
+    int filaModelo = tblEstudiantes.convertRowIndexToModel(fila);
+    String dni = tblEstudiantes.getModel()
+            .getValueAt(filaModelo, 1).toString();
+
+    Estudiante estudiante = arregloEstudiantes.buscarPorDni(dni);
+
+    if (estudiante == null) {
+        JOptionPane.showMessageDialog(
+                this,
+                "No se encontró el estudiante seleccionado."
+        );
+        return;
+    }
+
+    cargarFormulario(estudiante);
+    dniOriginal = estudiante.getDni();
+    jTextField1.setEditable(false);
+}
+
+
+private void eliminarEstudiante() {
+    String dni = obtenerDniObjetivo();
+
+    if (dni == null) {
+        JOptionPane.showMessageDialog(
+                this,
+                "Seleccione un estudiante o escriba su DNI."
+        );
+        return;
+    }
+
+    Estudiante estudiante = arregloEstudiantes.buscarPorDni(dni);
+
+    if (estudiante == null) {
+        JOptionPane.showMessageDialog(
+                this,
+                "No se encontró el estudiante."
+        );
+        return;
+    }
+
+    int confirmacion = JOptionPane.showConfirmDialog(
+            this,
+            "¿Está seguro de eliminar al estudiante "
+            + estudiante.getNombre() + " "
+            + estudiante.getApellidoP() + "?",
+            "Confirmar eliminación",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE
+    );
+
+    if (confirmacion != JOptionPane.YES_OPTION) {
+        return;
+    }
+
+    if (arregloEstudiantes.eliminar(dni)) {
+        AlmacenarEstudiantes.Guardar(arregloEstudiantes);
+        actualizarTabla();
+        limpiarFormulario();
+        dniOriginal = null;
+        jTextField1.setEditable(true);
+        jTextField12.setText("");
+
+        JOptionPane.showMessageDialog(
+                this,
+                "Estudiante eliminado correctamente."
+        );
+    }
+}
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
