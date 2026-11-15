@@ -1,21 +1,37 @@
 package Vistas.Paneles;
 
 import Vistas.Utilidades.EstiloTabla;
-
+import Salon.Salon;
+import Salon.ArregloSalones;
+import Salon.AlmacenarSalones;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author yadie
  */
 public class Salones extends javax.swing.JPanel {
-
+private ArregloSalones arregloSalones;
+private String codigoOriginal = null;
     /**
      * Creates new form Dashboard
      */
-    public Salones() {
-        
-        initComponents();
-        EstiloTabla.aplicar(tblEstudiantes);
-    }
+public Salones() {
+    initComponents();
+
+    arregloSalones = AlmacenarSalones.Recuperar();
+
+    configurarTabla();
+    EstiloTabla.aplicar(tblEstudiantes);
+    actualizarTabla();
+
+    jButton1.addActionListener(e -> registrarSalon());
+    jButton5.addActionListener(e -> guardarSalon());
+    jButton6.addActionListener(e -> cancelarOperacion());
+    jButton2.addActionListener(e -> consultarSalon());
+    jButton3.addActionListener(e -> eliminarSalon());
+    jButton4.addActionListener(e -> editarSalon());
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -307,4 +323,214 @@ public class Salones extends javax.swing.JPanel {
     private javax.swing.JTextField jTextField4;
     private javax.swing.JTable tblEstudiantes;
     // End of variables declaration//GEN-END:variables
+
+private void configurarTabla() {
+    DefaultTableModel modelo = new DefaultTableModel(
+        new Object[]{"N.º", "Código", "Grado", "Sección",
+            "Capacidad", "Aula / Piso", "Turno"}, 0
+    ) {
+        @Override
+        public boolean isCellEditable(int fila, int columna) {
+            return false;
+        }
+    };
+
+    tblEstudiantes.setModel(modelo);
+}
+
+private void actualizarTabla() {
+    DefaultTableModel modelo =
+        (DefaultTableModel) tblEstudiantes.getModel();
+
+    modelo.setRowCount(0);
+
+    for (int i = 0; i < arregloSalones.getCantidad(); i++) {
+        Salon salon = arregloSalones.obtener(i);
+        modelo.addRow(salon.Registro(i + 1));
+    }
+}
+
+private void registrarSalon() {
+    limpiarFormulario();
+    codigoOriginal = null;
+
+    jComboBox1.setSelectedIndex(0);
+    jComboBox2.setSelectedIndex(0);
+    jSpinner1.setValue(1);
+
+    jTextField2.requestFocus();
+}
+
+private void guardarSalon() {
+    String grado = jComboBox1.getSelectedItem().toString();
+    String seccion = jTextField2.getText().trim();
+    int capacidad = (Integer) jSpinner1.getValue();
+    String aulaPiso = jTextField4.getText().trim();
+    String turno = jComboBox2.getSelectedItem().toString();
+
+    if (seccion.isEmpty() || aulaPiso.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+            "Complete la sección y el aula/piso.");
+        return;
+    }
+
+    if (capacidad <= 0) {
+        JOptionPane.showMessageDialog(this,
+            "La capacidad debe ser mayor que cero.");
+        return;
+    }
+
+    String codigo;
+
+    if (codigoOriginal == null) {
+        codigo = generarCodigo();
+    } else {
+        codigo = codigoOriginal;
+    }
+
+    Salon salon = new Salon(
+        codigo, grado, seccion, capacidad, aulaPiso, turno
+    );
+
+    boolean resultado;
+
+    if (codigoOriginal == null) {
+        resultado = arregloSalones.agregar(salon);
+    } else {
+        resultado = arregloSalones.actualizar(codigoOriginal, salon);
+    }
+
+    if (!resultado) {
+        JOptionPane.showMessageDialog(this,
+            "No se pudo guardar el salón. Verifique sus datos.");
+        return;
+    }
+
+
+boolean estabaEditando = codigoOriginal != null;
+
+AlmacenarSalones.Guardar(arregloSalones);
+actualizarTabla();
+limpiarFormulario();
+codigoOriginal = null;
+
+if (estabaEditando) {
+    JOptionPane.showMessageDialog(this,
+        "Salón actualizado correctamente.");
+} else {
+    JOptionPane.showMessageDialog(this,
+        "Salón registrado correctamente.");
+}
+}
+
+private String generarCodigo() {
+    int siguiente = arregloSalones.getCantidad() + 1;
+    String codigo;
+
+    do {
+        codigo = String.format("SAL%03d", siguiente);
+        siguiente++;
+    } while (arregloSalones.buscarPorCodigo(codigo) != null);
+
+    return codigo;
+}
+
+private void consultarSalon() {
+    String codigo = jTextField12.getText().trim();
+
+    if (codigo.isEmpty()) {
+        JOptionPane.showMessageDialog(this,
+            "Ingrese el código del salón que desea consultar.");
+        return;
+    }
+
+    Salon salon = arregloSalones.buscarPorCodigo(codigo);
+
+    if (salon == null) {
+        JOptionPane.showMessageDialog(this,
+            "No se encontró el salón.");
+        return;
+    }
+
+    cargarFormulario(salon);
+}
+
+private void editarSalon() {
+    int fila = tblEstudiantes.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(this,
+            "Seleccione un salón de la tabla.");
+        return;
+    }
+
+    int filaModelo = tblEstudiantes.convertRowIndexToModel(fila);
+    String codigo = tblEstudiantes.getModel()
+        .getValueAt(filaModelo, 1).toString();
+
+    Salon salon = arregloSalones.buscarPorCodigo(codigo);
+
+    if (salon != null) {
+        cargarFormulario(salon);
+        codigoOriginal = salon.getCodigo();
+    }
+}
+
+private void eliminarSalon() {
+    int fila = tblEstudiantes.getSelectedRow();
+
+    if (fila == -1) {
+        JOptionPane.showMessageDialog(this,
+            "Seleccione un salón de la tabla.");
+        return;
+    }
+
+    int filaModelo = tblEstudiantes.convertRowIndexToModel(fila);
+    String codigo = tblEstudiantes.getModel()
+        .getValueAt(filaModelo, 1).toString();
+
+    int respuesta = JOptionPane.showConfirmDialog(this,
+        "¿Está seguro de eliminar este salón?",
+        "Confirmar eliminación",
+        JOptionPane.YES_NO_OPTION);
+
+    if (respuesta == JOptionPane.YES_OPTION) {
+        if (arregloSalones.eliminar(codigo)) {
+            AlmacenarSalones.Guardar(arregloSalones);
+            actualizarTabla();
+            limpiarFormulario();
+            codigoOriginal = null;
+
+            JOptionPane.showMessageDialog(this,
+                "Salón eliminado correctamente.");
+        }
+    }
+}
+
+private void cargarFormulario(Salon salon) {
+    jComboBox1.setSelectedItem(salon.getGrado());
+    jTextField2.setText(salon.getSeccion());
+    jSpinner1.setValue(salon.getCapacidad());
+    jTextField4.setText(salon.getAulaPiso());
+    jComboBox2.setSelectedItem(salon.getTurno());
+
+    jTextField12.setText(salon.getCodigo());
+}
+
+private void limpiarFormulario() {
+    jTextField2.setText("");
+    jSpinner1.setValue(1);
+    jTextField4.setText("");
+    jTextField12.setText("");
+    jComboBox1.setSelectedIndex(0);
+    jComboBox2.setSelectedIndex(0);
+}
+
+private void cancelarOperacion() {
+    limpiarFormulario();
+    codigoOriginal = null;
+}
+
+
+
 }
