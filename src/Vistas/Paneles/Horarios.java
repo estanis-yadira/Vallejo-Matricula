@@ -1,33 +1,261 @@
 package Vistas.Paneles;
 
+import Horario.AlmacenarHorarios;
+import Horario.ArregloHorarios;
+import Horario.Horario;
+import Horario.ValidadorHorario;
 import Vistas.Utilidades.EstiloTabla;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerDateModel;
+import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author yadie
- */
+
 public class Horarios extends javax.swing.JPanel {
-        private static final DateTimeFormatter FORMATO_FECHA = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+private ArregloHorarios arregloHorarios;
+    private String codigoOriginal = null;
     /**
      * Creates new form Dashboard
      */
     public Horarios() {
         
         initComponents();
+
+        arregloHorarios = AlmacenarHorarios.Recuperar();
+
+        configurarSpinners();
+        configurarTabla();
         EstiloTabla.aplicar(tblEstudiantes);
-        spHoraInicio.setModel(new SpinnerDateModel());
-        JSpinner.DateEditor editor = new JSpinner.DateEditor (spHoraInicio, "HH:mm");
-        spHoraInicio.setEditor(editor);
-        
-        spHoraFin.setModel(new SpinnerDateModel());
-        JSpinner.DateEditor editor1 = new JSpinner.DateEditor (spHoraFin, "HH:mm");
-        spHoraFin.setEditor(editor1);
+        actualizarTabla();
+
+        jButton1.addActionListener(e -> registrarHorario());
+        jButton5.addActionListener(e -> guardarHorario());
+        jButton6.addActionListener(e -> cancelarOperacion());
+        jButton2.addActionListener(e -> consultarHorarios());
+        jButton3.addActionListener(e -> eliminarHorario());
+        jButton4.addActionListener(e -> editarHorario());
     }
 
+    private void configurarSpinners() {
+        spHoraInicio.setModel(new SpinnerDateModel());
+        spHoraInicio.setEditor(new JSpinner.DateEditor(spHoraInicio, "HH:mm"));
+
+        spHoraFin.setModel(new SpinnerDateModel());
+        spHoraFin.setEditor(new JSpinner.DateEditor(spHoraFin, "HH:mm"));
+
+        valoresPorDefecto();
+    }
+
+    private void valoresPorDefecto() {
+        establecerHora(spHoraInicio, LocalTime.of(8, 0));
+        establecerHora(spHoraFin, LocalTime.of(9, 0));
+    }
+
+    private void establecerHora(JSpinner spinner, LocalTime hora) {
+        Calendar c = Calendar.getInstance();
+        c.set(Calendar.HOUR_OF_DAY, hora.getHour());
+        c.set(Calendar.MINUTE, hora.getMinute());
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
+        spinner.setValue(c.getTime());
+    }
+
+    private LocalTime leerHora(JSpinner spinner) {
+        Date fecha = (Date) spinner.getValue();
+        return fecha.toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalTime()
+                .withSecond(0)
+                .withNano(0);
+    }
+
+    private void configurarTabla() {
+        DefaultTableModel modelo = new DefaultTableModel(
+                new Object[]{"N°", "Código", "Año", "Grado", "Salón", "Curso",
+                    "DNI docente", "Día", "Inicio", "Fin"}, 0) {
+            @Override
+            public boolean isCellEditable(int fila, int columna) {
+                return false;
+            }
+        };
+
+        tblEstudiantes.setModel(modelo);
+    }
+
+    private void actualizarTabla() {
+        mostrarEnTabla(arregloHorarios.obtenerOrdenados());
+    }
+
+    private void mostrarEnTabla(Horario[] lista) {
+        DefaultTableModel modelo = (DefaultTableModel) tblEstudiantes.getModel();
+        modelo.setRowCount(0);
+
+        for (int i = 0; i < lista.length; i++) {
+            modelo.addRow(lista[i].Registro(i + 1));
+        }
+    }
+
+    private void registrarHorario() {
+        limpiarFormulario();
+        codigoOriginal = null;
+        jTextField3.requestFocus();
+    }
+
+    private void guardarHorario() {
+        String anio = jComboBox3.getSelectedItem().toString();
+        String grado = jComboBox4.getSelectedItem().toString();
+        String codigoSalon = jTextField3.getText().trim();
+        String codigoCurso = jTextField4.getText().trim();
+        String dni = jTextField11.getText().trim();
+        String dia = jComboBox1.getSelectedItem().toString();
+        LocalTime inicio = leerHora(spHoraInicio);
+        LocalTime fin = leerHora(spHoraFin);
+
+        String codigo = codigoOriginal == null ? generarCodigo() : codigoOriginal;
+
+        Horario horario = new Horario(codigo, anio, grado, codigoSalon,
+                codigoCurso, dni, dia, inicio, fin);
+
+        String error = ValidadorHorario.validar(horario, codigoOriginal, arregloHorarios);
+
+        if (error != null) {
+            JOptionPane.showMessageDialog(this, error);
+            return;
+        }
+
+        boolean estabaEditando = codigoOriginal != null;
+        boolean resultado = estabaEditando
+                ? arregloHorarios.actualizar(codigoOriginal, horario)
+                : arregloHorarios.agregar(horario);
+
+        if (!resultado) {
+            JOptionPane.showMessageDialog(this,
+                    "No se pudo guardar el horario. Verifique sus datos.");
+            return;
+        }
+
+        AlmacenarHorarios.Guardar(arregloHorarios);
+        actualizarTabla();
+        limpiarFormulario();
+        codigoOriginal = null;
+
+        JOptionPane.showMessageDialog(this, estabaEditando
+                ? "Horario actualizado correctamente."
+                : "Horario registrado correctamente.");
+    }
+
+    private String generarCodigo() {
+        int siguiente = arregloHorarios.getCantidad() + 1;
+        String codigo;
+
+        do {
+            codigo = String.format("HOR%03d", siguiente);
+            siguiente++;
+        } while (arregloHorarios.buscarPorCodigo(codigo) != null);
+
+        return codigo;
+    }
+
+    private void consultarHorarios() {
+        String dni = jTextField12.getText().trim();
+
+        if (dni.isEmpty()) {
+            actualizarTabla();
+            return;
+        }
+
+        Horario[] encontrados = arregloHorarios.buscarPorDocente(dni);
+
+        if (encontrados.length == 0) {
+            JOptionPane.showMessageDialog(this,
+                    "No se encontraron horarios para ese docente.");
+            return;
+        }
+
+        mostrarEnTabla(ArregloHorarios.ordenar(encontrados));
+    }
+
+    private Horario horarioSeleccionado() {
+        int fila = tblEstudiantes.getSelectedRow();
+
+        if (fila == -1) {
+            JOptionPane.showMessageDialog(this,
+                    "Seleccione un horario de la tabla.");
+            return null;
+        }
+
+        int filaModelo = tblEstudiantes.convertRowIndexToModel(fila);
+        String codigo = tblEstudiantes.getModel()
+                .getValueAt(filaModelo, 1).toString();
+
+        return arregloHorarios.buscarPorCodigo(codigo);
+    }
+
+    private void editarHorario() {
+        Horario horario = horarioSeleccionado();
+
+        if (horario != null) {
+            cargarFormulario(horario);
+            codigoOriginal = horario.getCodigo();
+        }
+    }
+
+    private void eliminarHorario() {
+        Horario horario = horarioSeleccionado();
+
+        if (horario == null) {
+            return;
+        }
+
+        int respuesta = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de eliminar este horario?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION);
+
+        if (respuesta == JOptionPane.YES_OPTION
+                && arregloHorarios.eliminar(horario.getCodigo())) {
+            AlmacenarHorarios.Guardar(arregloHorarios);
+            actualizarTabla();
+            limpiarFormulario();
+            codigoOriginal = null;
+
+            JOptionPane.showMessageDialog(this,
+                    "Horario eliminado correctamente.");
+        }
+    }
+
+    private void cargarFormulario(Horario h) {
+        jComboBox3.setSelectedItem(h.getAnio());
+        jComboBox4.setSelectedItem(h.getGrado());
+        jTextField3.setText(h.getCodigoSalon());
+        jTextField4.setText(h.getCodigoCurso());
+        jTextField11.setText(h.getDniDocente());
+        jComboBox1.setSelectedItem(h.getDia());
+        establecerHora(spHoraInicio, h.getHoraInicio());
+        establecerHora(spHoraFin, h.getHoraFin());
+    }
+
+    private void limpiarFormulario() {
+        jComboBox3.setSelectedIndex(0);
+        jComboBox4.setSelectedIndex(0);
+        jComboBox1.setSelectedIndex(0);
+        jTextField3.setText("");
+        jTextField4.setText("");
+        jTextField11.setText("");
+        jTextField12.setText("");
+        valoresPorDefecto();
+    }
+
+    private void cancelarOperacion() {
+        limpiarFormulario();
+        codigoOriginal = null;
+        actualizarTabla();
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -95,9 +323,9 @@ public class Horarios extends javax.swing.JPanel {
         jLabel5.setText("Código del salón:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 17, -1, -1));
 
-        jTextField3.setBackground(new java.awt.Color(255, 255, 255));
         jTextField3.setForeground(new java.awt.Color(138, 149, 156));
         jTextField3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        jTextField3.addActionListener(this::jTextField3ActionPerformed);
         jPanel1.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 37, 176, 29));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
@@ -105,15 +333,15 @@ public class Horarios extends javax.swing.JPanel {
         jLabel6.setText("Código del curso:");
         jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(614, 17, -1, -1));
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
         jTextField4.setForeground(new java.awt.Color(138, 149, 156));
         jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        jTextField4.addActionListener(this::jTextField4ActionPerformed);
         jPanel1.add(jTextField4, new org.netbeans.lib.awtextra.AbsoluteConstraints(614, 37, 176, 29));
 
-        jComboBox1.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox1.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jComboBox1.setForeground(new java.awt.Color(138, 149, 156));
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Lunes", "Martes", "Miércoles", "Jueves", "Viernes" }));
+        jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
         jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 98, 192, 29));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
@@ -131,18 +359,19 @@ public class Horarios extends javax.swing.JPanel {
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/guardar.png"))); // NOI18N
         jButton5.setText("Guardar");
+        jButton5.addActionListener(this::jButton5ActionPerformed);
         jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 150, -1, 35));
 
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
         jButton6.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jButton6.setForeground(new java.awt.Color(50, 52, 62));
         jButton6.setText("Cancelar");
+        jButton6.addActionListener(this::jButton6ActionPerformed);
         jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 150, 84, 35));
 
-        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jComboBox3.setForeground(new java.awt.Color(138, 149, 156));
         jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2026", "2025" }));
+        jComboBox3.addActionListener(this::jComboBox3ActionPerformed);
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 37, 176, 29));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
@@ -150,10 +379,10 @@ public class Horarios extends javax.swing.JPanel {
         jLabel4.setText("Grado:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 17, -1, -1));
 
-        jComboBox4.setBackground(new java.awt.Color(255, 255, 255));
         jComboBox4.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jComboBox4.setForeground(new java.awt.Color(138, 149, 156));
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" }));
+        jComboBox4.addActionListener(this::jComboBox4ActionPerformed);
         jPanel1.add(jComboBox4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 37, 192, 29));
 
         jLabel18.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
@@ -161,9 +390,9 @@ public class Horarios extends javax.swing.JPanel {
         jLabel18.setText("DNI del docente a cargo:");
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 78, -1, -1));
 
-        jTextField11.setBackground(new java.awt.Color(255, 255, 255));
         jTextField11.setForeground(new java.awt.Color(138, 149, 156));
         jTextField11.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        jTextField11.addActionListener(this::jTextField11ActionPerformed);
         jPanel1.add(jTextField11, new org.netbeans.lib.awtextra.AbsoluteConstraints(16, 98, 176, 29));
 
         spHoraInicio.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
@@ -183,6 +412,7 @@ public class Horarios extends javax.swing.JPanel {
         jButton1.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
         jButton1.setForeground(new java.awt.Color(255, 255, 255));
         jButton1.setText("Registrar horario");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
         add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 150, 40));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -192,7 +422,6 @@ public class Horarios extends javax.swing.JPanel {
         jLabel17.setForeground(new java.awt.Color(103, 115, 124));
         jLabel17.setText("Buscar por DNI:");
 
-        jTextField12.setBackground(new java.awt.Color(255, 255, 255));
         jTextField12.setForeground(new java.awt.Color(138, 149, 156));
         jTextField12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
 
@@ -201,6 +430,7 @@ public class Horarios extends javax.swing.JPanel {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lupa-consultar.png"))); // NOI18N
         jButton2.setText("Consultar");
+        jButton2.addActionListener(this::jButton2ActionPerformed);
 
         tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -216,17 +446,18 @@ public class Horarios extends javax.swing.JPanel {
         tblEstudiantes.setGridColor(new java.awt.Color(238, 243, 245));
         jScrollPane2.setViewportView(tblEstudiantes);
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(50, 52, 62));
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/tacho-eliminar.png"))); // NOI18N
         jButton3.setText("Eliminar");
+        jButton3.addActionListener(this::jButton3ActionPerformed);
 
         jButton4.setBackground(new java.awt.Color(58, 139, 155));
         jButton4.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
         jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lapiz-editar.png"))); // NOI18N
         jButton4.setText("Editar");
+        jButton4.addActionListener(this::jButton4ActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -272,6 +503,55 @@ public class Horarios extends javax.swing.JPanel {
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, 810, 290));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void jTextField11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField11ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField3ActionPerformed
+
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField4ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
