@@ -1,6 +1,7 @@
 package Vistas;
 
 import Docente.ControladorDocentes;
+import Horario.ControladorHorarios;
 import Vistas.Paneles.Dashboard;
 import Vistas.Paneles.Estudiantes;
 import java.awt.CardLayout;
@@ -53,7 +54,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelContenido.add(new Estudiantes(), "estudiantes");
         panelContenido.add(new Salones(), "salones");
         panelContenido.add(new Cursos(), "cursos");
-        panelContenido.add(new Horarios(), "horarios");
         panelContenido.add(new Matriculas(), "matriculas");
         panelContenido.add(new Reportes(), "reportes");
         card.show(panelContenido, "dashboard");
@@ -62,6 +62,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         Docentes panelDocentes = new Docentes();
         new ControladorDocentes(panelDocentes);
         panelContenido.add(panelDocentes, "docentes");
+        
+        Horarios panelHorarios = new Horarios();
+        new ControladorHorarios(panelHorarios);
+        panelContenido.add(panelHorarios, "horarios");
     }
 
     public VentanaPrincipal(String usuario) {
