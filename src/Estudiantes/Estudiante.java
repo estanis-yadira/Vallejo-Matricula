@@ -77,75 +77,30 @@ public class Estudiante implements Serializable {
         this.apellidoM = apellidoM;
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
+    public String getFechaNacimiento() {return fechaNacimiento;}
+    public void setFechaNacimiento(String fechaNacimiento) {this.fechaNacimiento = fechaNacimiento;}
 
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
-    }
+    public String getSexo() {return sexo;}
+    public void setSexo(String sexo) {this.sexo = sexo;}
 
-    public String getSexo() {
-        return sexo;
-    }
+    public String getDireccion() {return direccion;}
+    public void setDireccion(String direccion) {this.direccion = direccion;}
 
-    public void setSexo(String sexo) {
-        this.sexo = sexo;
-    }
+    public String getDniApoderado() {return dniApoderado;}
+    public void setDniApoderado(String dniApoderado) {this.dniApoderado = dniApoderado;}
 
-    public String getDireccion() {
-        return direccion;
-    }
+    public String getTelefonoApoderado() {return telefonoApoderado;}
+    public void setTelefonoApoderado(String telefonoApoderado) {this.telefonoApoderado = telefonoApoderado;}
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
+    public String getNombreApoderado() {return nombreApoderado;}
+    public void setNombreApoderado(String nombreApoderado) {this.nombreApoderado = nombreApoderado;}
 
-    public String getDniApoderado() {
-        return dniApoderado;
-    }
+    public String getApellidoPApoderado() {return apellidoPApoderado;}
+    public void setApellidoPApoderado(String apellidoPApoderado) {this.apellidoPApoderado = apellidoPApoderado;}
+    
+    public String getApellidoMApoderado() {return apellidoMApoderado;}
+    public void setApellidoMApoderado(String apellidoMApoderado) {this.apellidoMApoderado = apellidoMApoderado;}
 
-    public void setDniApoderado(String dniApoderado) {
-        this.dniApoderado = dniApoderado;
-    }
-
-    public String getTelefonoApoderado() {
-        return telefonoApoderado;
-    }
-
-    public void setTelefonoApoderado(String telefonoApoderado) {
-        this.telefonoApoderado = telefonoApoderado;
-    }
-
-    public String getNombreApoderado() {
-        return nombreApoderado;
-    }
-
-    public void setNombreApoderado(String nombreApoderado) {
-        this.nombreApoderado = nombreApoderado;
-    }
-
-    public String getApellidoPApoderado() {
-        return apellidoPApoderado;
-    }
-
-    public void setApellidoPApoderado(String apellidoPApoderado) {
-        this.apellidoPApoderado = apellidoPApoderado;
-    }
-
-    public String getApellidoMApoderado() {
-        return apellidoMApoderado;
-    }
-
-    public void setApellidoMApoderado(String apellidoMApoderado) {
-        this.apellidoMApoderado = apellidoMApoderado;
-    }
-
-    public String getParentesco() {
-        return parentesco;
-    }
-
-    public void setParentesco(String parentesco) {
-        this.parentesco = parentesco;
-    }
+    public String getParentesco() {return parentesco;}
+    public void setParentesco(String parentesco) { this.parentesco = parentesco;}
 }

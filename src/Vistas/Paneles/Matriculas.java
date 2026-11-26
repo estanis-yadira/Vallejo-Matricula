@@ -1,6 +1,8 @@
 package Vistas.Paneles;
 
 import Vistas.Utilidades.EstiloTabla;
+import Controlador.ControladorMatriculas;
+import Vistas.Utilidades.EstiloTabla;
 
 /**
  *
@@ -15,6 +17,7 @@ public class Matriculas extends javax.swing.JPanel {
         
         initComponents();
         EstiloTabla.aplicar(tblMatriculas);
+        new ControladorMatriculas(this);
     }
 
     /**
@@ -31,28 +34,28 @@ public class Matriculas extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        txtCodigoSalon = new javax.swing.JTextField();
+        cbGrado = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        txtFechaNac = new javax.swing.JFormattedTextField();
+        cbAñoLectivo = new javax.swing.JComboBox<>();
+        txtFechaMatricula = new javax.swing.JFormattedTextField();
         jLabel7 = new javax.swing.JLabel();
-        jButton6 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+        btnGuardar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblMatriculas = new javax.swing.JTable();
-        jButton4 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnEditar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
-        jTextField12 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
+        txtBuscarDni = new javax.swing.JTextField();
+        btnConsultar = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
-        jButton9 = new javax.swing.JButton();
+        lblEstudiante = new javax.swing.JLabel();
+        btnEstado = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
+        lblApoderado = new javax.swing.JLabel();
+        lblNombreApod = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(244, 247, 249));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -78,49 +81,45 @@ public class Matriculas extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(103, 115, 124));
         jLabel6.setText("Código del salón:");
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField4.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtCodigoSalon.setForeground(new java.awt.Color(138, 149, 156));
+        txtCodigoSalon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
 
-        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jComboBox3.setForeground(new java.awt.Color(138, 149, 156));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" }));
+        cbGrado.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        cbGrado.setForeground(new java.awt.Color(138, 149, 156));
+        cbGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" }));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(103, 115, 124));
         jLabel3.setText("Año lectivo:");
 
-        jComboBox4.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox4.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jComboBox4.setForeground(new java.awt.Color(138, 149, 156));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2026", "2025" }));
+        cbAñoLectivo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        cbAñoLectivo.setForeground(new java.awt.Color(138, 149, 156));
+        cbAñoLectivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2026", "2025" }));
 
-        txtFechaNac.setBackground(new java.awt.Color(255, 255, 255));
-        txtFechaNac.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
-        txtFechaNac.setForeground(new java.awt.Color(138, 149, 156));
+        txtFechaMatricula.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtFechaMatricula.setForeground(new java.awt.Color(138, 149, 156));
         try {
-            txtFechaNac.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+            txtFechaMatricula.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
         } catch (java.text.ParseException ex) {
             ex.printStackTrace();
         }
-        txtFechaNac.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        txtFechaNac.addActionListener(this::txtFechaNacActionPerformed);
+        txtFechaMatricula.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        txtFechaMatricula.addActionListener(this::txtFechaMatriculaActionPerformed);
 
         jLabel7.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(103, 115, 124));
         jLabel7.setText("Fecha de matrícula:");
 
-        jButton6.setBackground(new java.awt.Color(255, 255, 255));
-        jButton6.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jButton6.setForeground(new java.awt.Color(50, 52, 62));
-        jButton6.setText("Cancelar");
+        btnCancelar.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        btnCancelar.setForeground(new java.awt.Color(50, 52, 62));
+        btnCancelar.setText("Cancelar");
 
-        jButton5.setBackground(new java.awt.Color(58, 139, 155));
-        jButton5.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton5.setForeground(new java.awt.Color(255, 255, 255));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/guardar.png"))); // NOI18N
-        jButton5.setText("Guardar");
+        btnGuardar.setBackground(new java.awt.Color(58, 139, 155));
+        btnGuardar.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
+        btnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/guardar.png"))); // NOI18N
+        btnGuardar.setText("Guardar");
+        btnGuardar.addActionListener(this::btnGuardarActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -130,25 +129,25 @@ public class Matriculas extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel3)
-                            .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbAñoLectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel4)
-                            .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbGrado, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtCodigoSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel6))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
-                            .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(txtFechaMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 18, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -159,23 +158,23 @@ public class Matriculas extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbAñoLectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigoSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbGrado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(35, 35, 35))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel7)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtFechaMatricula, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -198,17 +197,16 @@ public class Matriculas extends javax.swing.JPanel {
         tblMatriculas.setGridColor(new java.awt.Color(238, 243, 245));
         jScrollPane2.setViewportView(tblMatriculas);
 
-        jButton4.setBackground(new java.awt.Color(58, 139, 155));
-        jButton4.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lapiz-editar.png"))); // NOI18N
-        jButton4.setText("Editar");
+        btnEditar.setBackground(new java.awt.Color(58, 139, 155));
+        btnEditar.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnEditar.setForeground(new java.awt.Color(255, 255, 255));
+        btnEditar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lapiz-editar.png"))); // NOI18N
+        btnEditar.setText("Editar");
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
-        jButton3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(50, 52, 62));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/tacho-eliminar.png"))); // NOI18N
-        jButton3.setText("Eliminar");
+        btnEliminar.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        btnEliminar.setForeground(new java.awt.Color(50, 52, 62));
+        btnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/tacho-eliminar.png"))); // NOI18N
+        btnEliminar.setText("Eliminar");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -218,9 +216,9 @@ public class Matriculas extends javax.swing.JPanel {
                 .addGap(16, 16, 16)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton4)
+                        .addComponent(btnEditar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
@@ -231,8 +229,8 @@ public class Matriculas extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -243,40 +241,39 @@ public class Matriculas extends javax.swing.JPanel {
         jLabel17.setText("Buscar por DNI:");
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 30, -1, -1));
 
-        jTextField12.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField12.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField12.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
-        jTextField12.setPreferredSize(new java.awt.Dimension(176, 29));
-        add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
+        txtBuscarDni.setForeground(new java.awt.Color(138, 149, 156));
+        txtBuscarDni.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtBuscarDni.setPreferredSize(new java.awt.Dimension(176, 29));
+        add(txtBuscarDni, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 20, -1, -1));
 
-        jButton2.setBackground(new java.awt.Color(58, 139, 155));
-        jButton2.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton2.setForeground(new java.awt.Color(255, 255, 255));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lupa-consultar.png"))); // NOI18N
-        jButton2.setText("Consultar");
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));
+        btnConsultar.setBackground(new java.awt.Color(58, 139, 155));
+        btnConsultar.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnConsultar.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lupa-consultar.png"))); // NOI18N
+        btnConsultar.setText("Consultar");
+        add(btnConsultar, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 20, -1, -1));
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(224, 231, 235), 2));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(107, 123, 133));
-        jLabel9.setText("Nombre del estudiante");
+        lblEstudiante.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblEstudiante.setForeground(new java.awt.Color(107, 123, 133));
+        lblEstudiante.setText("Nombre del estudiante");
 
-        jButton9.setBackground(new java.awt.Color(244, 179, 128));
-        jButton9.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jButton9.setForeground(new java.awt.Color(50, 52, 62));
-        jButton9.setText("Sin matrícula 2026");
+        btnEstado.setBackground(new java.awt.Color(244, 179, 128));
+        btnEstado.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        btnEstado.setForeground(new java.awt.Color(50, 52, 62));
+        btnEstado.setText("Sin matrícula 2026");
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/matricular-estudiante.png"))); // NOI18N
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(50, 52, 62));
-        jLabel8.setText("Apoderado:");
+        lblApoderado.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        lblApoderado.setForeground(new java.awt.Color(50, 52, 62));
+        lblApoderado.setText("Apoderado:");
 
-        jLabel10.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jLabel10.setForeground(new java.awt.Color(103, 115, 124));
-        jLabel10.setText("Nombre del apoderado");
+        lblNombreApod.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        lblNombreApod.setForeground(new java.awt.Color(103, 115, 124));
+        lblNombreApod.setText("Nombre del apoderado");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -287,13 +284,13 @@ public class Matriculas extends javax.swing.JPanel {
                 .addComponent(jLabel5)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel9)
+                    .addComponent(lblEstudiante)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addComponent(lblApoderado)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel10)))
+                        .addComponent(lblNombreApod)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 389, Short.MAX_VALUE)
-                .addComponent(jButton9)
+                .addComponent(btnEstado)
                 .addGap(15, 15, 15))
         );
         jPanel3Layout.setVerticalGroup(
@@ -303,13 +300,13 @@ public class Matriculas extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton9, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel9)
+                                .addComponent(lblEstudiante)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(lblApoderado, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lblNombreApod, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jLabel5)))
@@ -319,22 +316,25 @@ public class Matriculas extends javax.swing.JPanel {
         add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 810, 80));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtFechaNacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaNacActionPerformed
+    private void txtFechaMatriculaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtFechaMatriculaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtFechaNacActionPerformed
+    }//GEN-LAST:event_txtFechaMatriculaActionPerformed
+
+    private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnGuardarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
+    public javax.swing.JButton btnCancelar;
+    public javax.swing.JButton btnConsultar;
+    public javax.swing.JButton btnEditar;
+    public javax.swing.JButton btnEliminar;
+    public javax.swing.JButton btnEstado;
+    public javax.swing.JButton btnGuardar;
+    public javax.swing.JComboBox<String> cbAñoLectivo;
+    public javax.swing.JComboBox<String> cbGrado;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -342,15 +342,18 @@ public class Matriculas extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTable tblMatriculas;
-    private javax.swing.JFormattedTextField txtFechaNac;
+    public javax.swing.JLabel lblApoderado;
+    public javax.swing.JLabel lblEstudiante;
+    public javax.swing.JLabel lblNombreApod;
+    public javax.swing.JTable tblMatriculas;
+    public javax.swing.JTextField txtBuscarDni;
+    public javax.swing.JTextField txtCodigoSalon;
+    public javax.swing.JFormattedTextField txtFechaMatricula;
     // End of variables declaration//GEN-END:variables
+
+ 
 }

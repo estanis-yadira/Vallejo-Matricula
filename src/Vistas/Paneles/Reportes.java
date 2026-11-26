@@ -1,6 +1,8 @@
 package Vistas.Paneles;
 
 import Vistas.Utilidades.EstiloTabla;
+import Controlador.ControladorReportes;
+import Vistas.Utilidades.EstiloTabla;
 
 /**
  *
@@ -11,10 +13,11 @@ public class Reportes extends javax.swing.JPanel {
     /**
      * Creates new form Dashboard
      */
+    public ControladorReportes controlador;
     public Reportes() {
-        
         initComponents();
-        EstiloTabla.aplicar(tblEstudiantes);
+        EstiloTabla.aplicar(tblReportes);
+        controlador = new ControladorReportes(this);
     }
 
     /**
@@ -31,14 +34,14 @@ public class Reportes extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        txtCodigoSalon = new javax.swing.JTextField();
+        cbGrado = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox4 = new javax.swing.JComboBox<>();
-        jButton7 = new javax.swing.JButton();
+        cbAñoLectivo = new javax.swing.JComboBox<>();
+        btnConsulta = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblEstudiantes = new javax.swing.JTable();
+        tblReportes = new javax.swing.JTable();
         jButton3 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
 
@@ -66,29 +69,27 @@ public class Reportes extends javax.swing.JPanel {
         jLabel6.setForeground(new java.awt.Color(103, 115, 124));
         jLabel6.setText("Código del salón:");
 
-        jTextField4.setBackground(new java.awt.Color(255, 255, 255));
-        jTextField4.setForeground(new java.awt.Color(138, 149, 156));
-        jTextField4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
+        txtCodigoSalon.setForeground(new java.awt.Color(138, 149, 156));
+        txtCodigoSalon.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(207, 216, 222)));
 
-        jComboBox3.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jComboBox3.setForeground(new java.awt.Color(138, 149, 156));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" }));
+        cbGrado.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        cbGrado.setForeground(new java.awt.Color(138, 149, 156));
+        cbGrado.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Primero", "Segundo", "Tercero", "Cuarto", "Quinto", "Sexto" }));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(103, 115, 124));
         jLabel3.setText("Año lectivo:");
 
-        jComboBox4.setBackground(new java.awt.Color(255, 255, 255));
-        jComboBox4.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jComboBox4.setForeground(new java.awt.Color(138, 149, 156));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2026", "2025" }));
+        cbAñoLectivo.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        cbAñoLectivo.setForeground(new java.awt.Color(138, 149, 156));
+        cbAñoLectivo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2026", "2025" }));
 
-        jButton7.setBackground(new java.awt.Color(58, 139, 155));
-        jButton7.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
-        jButton7.setForeground(new java.awt.Color(255, 255, 255));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lupa-consultar.png"))); // NOI18N
-        jButton7.setText("Consultar");
+        btnConsulta.setBackground(new java.awt.Color(58, 139, 155));
+        btnConsulta.setFont(new java.awt.Font("Segoe UI Emoji", 1, 12)); // NOI18N
+        btnConsulta.setForeground(new java.awt.Color(255, 255, 255));
+        btnConsulta.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/lupa-consultar.png"))); // NOI18N
+        btnConsulta.setText("Consultar");
+        btnConsulta.addActionListener(this::btnConsultaActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -98,17 +99,17 @@ public class Reportes extends javax.swing.JPanel {
                 .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbAñoLectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbGrado, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigoSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(jButton7))
+                        .addComponent(btnConsulta))
                     .addComponent(jLabel6))
                 .addGap(0, 74, Short.MAX_VALUE))
         );
@@ -120,16 +121,16 @@ public class Reportes extends javax.swing.JPanel {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbAñoLectivo, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtCodigoSalon, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbGrado, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel4)
                         .addGap(35, 35, 35))
-                    .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnConsulta, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(9, Short.MAX_VALUE))
         );
 
@@ -138,7 +139,7 @@ public class Reportes extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(224, 231, 235), 2));
 
-        tblEstudiantes.setModel(new javax.swing.table.DefaultTableModel(
+        tblReportes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -149,15 +150,13 @@ public class Reportes extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblEstudiantes.setGridColor(new java.awt.Color(238, 243, 245));
-        jScrollPane2.setViewportView(tblEstudiantes);
+        tblReportes.setGridColor(new java.awt.Color(238, 243, 245));
+        jScrollPane2.setViewportView(tblReportes);
 
-        jButton3.setBackground(new java.awt.Color(255, 255, 255));
         jButton3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jButton3.setForeground(new java.awt.Color(50, 52, 62));
         jButton3.setText("Exportar a Excel");
 
-        jButton8.setBackground(new java.awt.Color(255, 255, 255));
         jButton8.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
         jButton8.setForeground(new java.awt.Color(50, 52, 62));
         jButton8.setText("Exportar a PDF");
@@ -191,13 +190,17 @@ public class Reportes extends javax.swing.JPanel {
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 810, 410));
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnConsultaActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnConsulta;
+    public javax.swing.JComboBox<String> cbAñoLectivo;
+    public javax.swing.JComboBox<String> cbGrado;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -206,7 +209,7 @@ public class Reportes extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTable tblEstudiantes;
+    public javax.swing.JTable tblReportes;
+    public javax.swing.JTextField txtCodigoSalon;
     // End of variables declaration//GEN-END:variables
 }
