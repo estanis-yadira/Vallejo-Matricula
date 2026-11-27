@@ -17,7 +17,7 @@ public class ListaDocente implements Serializable{
     }
 
  public void MostrarLista(JTable tabla, ListaDocente lista){
-        String titulos[]={"Num","DNI","NOMBRE","APELLIDO P.","APELLIDO M.", "ESPECIALIDAD", "CORREO", "TELEFONO", "DIRECCION"};
+        String titulos[]={"N.º","DNI","Nombres","Apellido P.","Apellido M.", "Especialidad", "Correo", "Teléfono", "Dirección"};
         
 DefaultTableModel mt = new DefaultTableModel(null, titulos) {
     @Override

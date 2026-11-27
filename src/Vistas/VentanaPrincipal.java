@@ -56,6 +56,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         panelContenido.add(new Cursos(), "cursos");
         panelContenido.add(new Matriculas(), "matriculas");
         panelContenido.add(new Reportes(), "reportes");
+        panelContenido.add(new ReportesDocentes(), "reportesDocentes");
         card.show(panelContenido, "dashboard");
         configurarMenu();
         
@@ -95,6 +96,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnCerrarSesion = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btnReportesDoc = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         panelContenido = new javax.swing.JPanel();
@@ -217,7 +219,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         btnReportes.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnReportes.setForeground(new java.awt.Color(255, 255, 255));
         btnReportes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/imagenes/logo-reporte-estud.png"))); // NOI18N
-        btnReportes.setText("Reporte de estud.");
+        btnReportes.setText("Estud. matriculados");
         btnReportes.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
         btnReportes.setContentAreaFilled(false);
         btnReportes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
@@ -252,6 +254,21 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Vistas/Imagenes/grupo-ninos.png"))); // NOI18N
         jLabel2.setText("jLabel2");
 
+        btnReportesDoc.setBackground(new java.awt.Color(50, 52, 62));
+        btnReportesDoc.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnReportesDoc.setForeground(new java.awt.Color(255, 255, 255));
+        btnReportesDoc.setIcon(new javax.swing.ImageIcon(getClass().getResource("/vistas/imagenes/logo-reporte-estud.png"))); // NOI18N
+        btnReportesDoc.setText("Cursos por docente");
+        btnReportesDoc.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(102, 153, 255)));
+        btnReportesDoc.setContentAreaFilled(false);
+        btnReportesDoc.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btnReportesDoc.setFocusPainted(false);
+        btnReportesDoc.setHideActionText(true);
+        btnReportesDoc.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        btnReportesDoc.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
+        btnReportesDoc.setIconTextGap(10);
+        btnReportesDoc.addActionListener(this::btnReportesDocActionPerformed);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -271,18 +288,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                                 .addComponent(btnHorarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(btnMatricula, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                 .addComponent(btnReportes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnReportesDoc, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(61, 61, 61)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(15, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(btnDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnEstudiantes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -299,10 +317,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnReportesDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnCerrarSesion, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(51, 51, 51))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39))
         );
 
         panelGeneral.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 230, 640));
@@ -396,6 +416,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnCerrarSesionActionPerformed
 
+    private void btnReportesDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesDocActionPerformed
+        mostrarPanel("reportesDocentes");
+    }//GEN-LAST:event_btnReportesDocActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -408,6 +432,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         menu.put("horarios", btnHorarios);
         menu.put("matriculas", btnMatricula);
         menu.put("reportes", btnReportes);
+        menu.put("reportesDocentes", btnReportesDoc);
         menu.put("cerrarSesion", btnCerrarSesion);
 
         for (JButton boton : menu.values()) {
@@ -500,6 +525,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnHorarios;
     private javax.swing.JButton btnMatricula;
     private javax.swing.JButton btnReportes;
+    private javax.swing.JButton btnReportesDoc;
     private javax.swing.JButton btnSalones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

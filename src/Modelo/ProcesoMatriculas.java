@@ -10,9 +10,9 @@ import javax.swing.table.DefaultTableModel;
  * @author milag
  */
 public class ProcesoMatriculas {
-    public static final String[] TITULOS_MATRICULA = {"Num", "Código", "DNI Estudiante", "Año Lectivo","Grado", "Salón", "Fecha", "Estado"};
+    public static final String[] TITULOS_MATRICULA = {"N.º", "Código", "DNI Estudiante", "Año Lectivo","Grado", "Salón", "Fecha", "Estado"};
 
-    public static final String[] TITULOS_REPORTE = {"Num", "DNI", "Estudiante", "Apoderado", "Teléfono","Año Lectivo", "Grado", "Salón", "Fecha Matrícula"};
+    public static final String[] TITULOS_REPORTE = {"N.º", "DNI", "Estudiante", "Apoderado", "Teléfono","Año Lectivo", "Grado", "Salón", "Fecha Matrícula"};
 
     public static String generarCodigo(ArregloMatriculas arreglo, String anioLectivo) {
         int correlativo = arreglo.getCantidad() + 1;

@@ -15,7 +15,7 @@ public class ListaHorario implements Serializable {
         ini = fin = null;
     }
 
-    public static final String[] TITULOS = {"Num", "AÑO", "GRADO", "SALON", "CURSO", "DNI DOCENTE", "DIA", "INICIO", "FIN"};
+    public static final String[] TITULOS = {"N.º", "Año", "Grado", "Salón", "Curso", "DNI Docente", "Día", "Hora Inicio", "Hora Fin"};
 
     public void MostrarLista(JTable tabla, ListaHorario lista) {
         DefaultTableModel mt = crearModelo();

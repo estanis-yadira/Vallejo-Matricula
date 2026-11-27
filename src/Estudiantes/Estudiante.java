@@ -31,14 +31,9 @@ public class Estudiante implements Serializable {
             nombre,
             apellidoP,
             apellidoM,
-            fechaNacimiento,
-            sexo,
             direccion,
-            dniApoderado,
-            telefonoApoderado,
             nombreApoderado,
-            apellidoPApoderado,
-            apellidoMApoderado,
+            telefonoApoderado,
             parentesco
         };
 

@@ -42,15 +42,15 @@ public class Reportes extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblReportes = new javax.swing.JTable();
-        jButton3 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        btnExportarExcel = new javax.swing.JButton();
+        btnExportarPDF = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(244, 247, 249));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(50, 52, 62));
-        jLabel1.setText("Reportes");
+        jLabel1.setText("Lista de estudiantes");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
@@ -153,13 +153,13 @@ public class Reportes extends javax.swing.JPanel {
         tblReportes.setGridColor(new java.awt.Color(238, 243, 245));
         jScrollPane2.setViewportView(tblReportes);
 
-        jButton3.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jButton3.setForeground(new java.awt.Color(50, 52, 62));
-        jButton3.setText("Exportar a Excel");
+        btnExportarExcel.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        btnExportarExcel.setForeground(new java.awt.Color(50, 52, 62));
+        btnExportarExcel.setText("Exportar a Excel");
 
-        jButton8.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(50, 52, 62));
-        jButton8.setText("Exportar a PDF");
+        btnExportarPDF.setFont(new java.awt.Font("Segoe UI Emoji", 0, 12)); // NOI18N
+        btnExportarPDF.setForeground(new java.awt.Color(50, 52, 62));
+        btnExportarPDF.setText("Exportar a PDF");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -170,9 +170,9 @@ public class Reportes extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 777, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jButton8)
+                        .addComponent(btnExportarPDF)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)))
+                        .addComponent(btnExportarExcel)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -182,8 +182,8 @@ public class Reportes extends javax.swing.JPanel {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton8, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnExportarExcel, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnExportarPDF, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(17, 17, 17))
         );
 
@@ -197,10 +197,10 @@ public class Reportes extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     public javax.swing.JButton btnConsulta;
+    private javax.swing.JButton btnExportarExcel;
+    private javax.swing.JButton btnExportarPDF;
     public javax.swing.JComboBox<String> cbAñoLectivo;
     public javax.swing.JComboBox<String> cbGrado;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -472,11 +472,8 @@ public Estudiantes() {
 
 private void configurarTabla() {
     String[] columnas = {
-        "N°", "DNI", "Nombre", "Apellido paterno",
-        "Apellido materno", "Fecha nacimiento", "Sexo",
-        "Dirección", "DNI apoderado", "Teléfono apoderado",
-        "Nombre apoderado", "Apellido paterno apoderado",
-        "Apellido materno apoderado", "Parentesco"
+        "N.º", "DNI", "Nombres", "Apellido P.",
+        "Apellido M.",  "Dirección", "Apoderado", "Teléfono", "Parentesco"
     };
 
     DefaultTableModel modelo = new DefaultTableModel(columnas, 0) {
